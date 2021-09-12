@@ -36,7 +36,7 @@ describe("GET /items/:name", () => {
         async() => {
             let res = await request(app).get("/items/carrot");
             expect(res.statusCode).toBe(400);
-            // expect(res.body).toEqual({error: {message: "Item not found.", status: 400}});
+            expect(res.body).toEqual({error: {message: "Item not found.", status: 400}});
         });
 });
 
@@ -47,7 +47,7 @@ describe("POST /items", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body).toEqual({added: {name: "toothbrush", price: "$1.99"}});
         expect(items.length).toBe(2);
-    })
+    });
     test("Does the POST items route return an error if the user is not authenticated?", async() => {
         let res = await request(app).post("/items")
         .send({token: "pizza", item: {name: "toothbrush", price: "$1.99"}});
@@ -102,5 +102,5 @@ describe("DELETE /items/name", () => {
         .send({token: "abc"});
         expect(res.statusCode).toBe(401);
         expect(res.body.error.message).toEqual("Unauthorized");
-    })
-})
+    });
+});
